@@ -1,6 +1,6 @@
 function [ im_ave_lum ,block_ave_lum ] = log_average( Y, params )
 %LOG_AVERAGE Calculate the log average of the image and for each block
-    Y=double(Y);
+    Y=double(Y(:,:,1));
     im_ave_lum = exp(sum(sum(log(params.delta+Y(:,:)))/params.N));
     
     block_ave_lum= zeros(params.Width8);
