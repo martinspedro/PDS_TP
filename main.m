@@ -12,12 +12,11 @@ params.alpha = 3;
 
 % Small value to avoid taking the log of a completely black pixel whose
 % luminance is zero 
-params.delta = 0.01;
+params.delta = 10^-5;
 
 % Number of pixels in each row/column of a image block
 params.blockSize = 8;
 
-params.Width8 = 8;
 
 %% Read image
 image.uint8 = imread('Pictures/Lenna.png');
@@ -28,6 +27,12 @@ imshow(image.uint8, []);
 image.double = im2double(image.uint8);
 figure(2)
 imshow(image.double, []);
+
+% Image width
+params.Width = size(image.uint8, 1);
+
+% Image width normalized to the number of blocks
+params.Width8 = params.Width / params.blockSize;
 
 %% Read Watermark
 watermark.uint8 = imread('Pictures/watermark_pinterest.png');
@@ -44,7 +49,7 @@ title('Watermark to be used');
 params.N = size(image.uint8, 1) * size(image.uint8, 2);
 
 % Number of blocks required to embedded the watermark
-params.Nblock = numel(watermark.uint8) / params.blockSize.^2
+params.nBlocks = numel(watermark.uint8) / params.blockSize.^2;
 
 %% Run Watermark Embedder
 run Embedder
