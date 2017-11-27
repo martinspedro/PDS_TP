@@ -3,7 +3,8 @@ function [img_clean, wmk_extraida] = watermark_extract(img_original,img_watermar
 dif_image = img_watermarked(:,:,1) - img_original(:,:,1);
 img_clean = img_watermarked(:,:,1) - dif_image;
 
-bin_image = (dif_image>=alpha).*255;
+theta= params.alpha/127;
+bin_image = (dif_image./theta) + 127;
 
 wmk_extraida = zeros(32,32);
 nblocks = length(watermark.decoded)/params.blockSize;
