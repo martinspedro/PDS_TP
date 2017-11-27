@@ -21,7 +21,7 @@ data.spirallyChoosenBlocks = select_spiral(data.candidateBlocks, params);
 
 %% Embedded Watermark
 % Falta discutir com a Patricia as alterações
-image.watermarked = watermark_embedding(image.YCbCr, watermark.uint8 , [x, y, L], params);
+image.watermarked = watermark_embedding(image.YCbCr, watermark.uint8 , xy, params);
 
 %% Convert from YCbCr to RGB colour space
 image.RGB_watermarked = conv_YCbCr2RGB(image.watermarked);

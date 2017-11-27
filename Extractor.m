@@ -21,7 +21,7 @@ data.spirallyChoosenBlocks = select_spiral(data.candidateBlocks, params);
 
 %% Extract Watermark
 % Falta discutir com a Patricia as alterações
-[image.YCbCr_clean, watermark.decode] = watermark_extract(image.YCbCr, image.YCbCr_watermarked , [x, y, L], params);
+[image.YCbCr_clean, watermark.decode] = watermark_extract(image.YCbCr, image.YCbCr_watermarked , xy, params);
 
 %% Convert from YCbCr to RGB colour space
 image.RGB_clean = conv_YCbCr2RGB(image.YCbCr_clean);
