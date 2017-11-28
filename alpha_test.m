@@ -1,8 +1,8 @@
 %% Spatial Domain watermarking Scheme for Colored Images Based on Log-average Luminance
-% André Gradim - 
-% João Pandeirada -
+% André Gradim     - 
+% João Pandeirada  -
 % Patrícia Martins - 
-% Pedro Martins - 76374
+% Pedro Martins    - 76374
 
 clear; close all; clc;
 
@@ -60,7 +60,7 @@ for k = 1:length(alpha)
     run Embedder
 
     if verbose_pic
-    
+        % Show test image in YCbCr color space
         figure(3)
         imshow(image.YCbCr, [])
         title('Original Test Image in YC_bC_r color space')
@@ -105,6 +105,8 @@ end;
 %% Results
 
 %%% Tables
+T = table(alpha', value', image.PSNR_dB', ...
+          'VariableNames', {'alpha', 'QualityMeasurement','PSNR_dB'})
 
 %%% Plots
 figure(8)
