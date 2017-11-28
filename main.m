@@ -22,28 +22,31 @@ params.blockSize = 8;
 image.uint8 = imread('Pictures/Lenna.png');
 figure(1)
 imshow(image.uint8, []);
+title('Original Test Image');
 
-% Convert to double
-image.double = im2double(image.uint8);
+% % Convert to double
+% image.double = im2double(image.uint8);
+% figure(2)
+% imshow(image.double, []);
+
+
+%% Read Watermark
+watermark.uint8 = imread('Pictures/watermark_pinterest.png');
+
+% Convert the RGB watermark into a binary image (black and white)
+watermark.uint8 = ( (rgb2gray(watermark.uint8) ) > 127).*255;
+
 figure(2)
-imshow(image.double, []);
+imshow(watermark.uint8 )
+title('Original Test Watermark');
 
+%% Calculate image dependent simulation parameters
 % Image width
 params.Width = size(image.uint8, 1);
 
 % Image width normalized to the number of blocks
 params.Width8 = params.Width / params.blockSize;
 
-%% Read Watermark
-watermark.uint8 = imread('Pictures/watermark_pinterest.png');
-watermark.uint8 = rgb2gray(watermark.uint8);
-watermark.uint8 = (watermark.uint8>127).*255;
-
-figure(3)
-imshow(watermark.uint8 )
-title('Watermark to be used');
-
-%% Calculate simulation parameters
 % Number of pixels in the image
 params.N = size(image.uint8, 1) * size(image.uint8, 2);
 
@@ -54,13 +57,13 @@ params.nBlocks = numel(watermark.uint8(:,:,1)) / params.blockSize.^2;
 run Embedder
 
 %% Calculate PSNR
-image.PSNR_dB = psnr(image.uint8, image.RGB_watermarked)
+image.PSNR_dB = psnr(image.uint8, image.RGB_watermarked);
 
 %% Run Watermarker Extractor
 run Extractor
 
 %% Calculate Similarity
-value = Quality_Measurement(watermark.uint8, watermark.decode)
+value = Quality_Measurement(watermark.uint8, watermark.decode);
 
 %% Results
 
