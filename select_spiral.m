@@ -10,7 +10,7 @@ function [change] =select_spiral(candidatos, params)
         pos = find(sel_order==p);
 
         if( candidatos(pos) == 1)
-            [x y] = ind2sub(params.Width8, pos);
+            [x, y] = ind2sub(params.Width8, pos);
             change(n_sel_blocks + 1, :) = [x y];
             n_sel_blocks=n_sel_blocks+1;
         end
