@@ -8,7 +8,7 @@ clear; close all; clc;
 
 %% Parameters
 % Addition factor to watermark embedding
-params.alpha = 3;
+params.alpha = 10;
 
 % Small value to avoid taking the log of a completely black pixel whose
 % luminance is zero 
@@ -17,19 +17,14 @@ params.delta = 10^-5;
 % Number of pixels in each row/column of a image block
 params.blockSize = 8;
 
-
+verbose_pic = 0;
 %% Read image
 image.uint8 = imread('Pictures/Lenna.png');
+
 figure(1)
 imshow(image.uint8, []);
 title('Original Test Image');
-
-% % Convert to double
-% image.double = im2double(image.uint8);
-% figure(2)
-% imshow(image.double, []);
-
-
+drawnow
 %% Read Watermark
 watermark.uint8 = imread('Pictures/watermark_pinterest.png');
 
@@ -39,7 +34,7 @@ watermark.uint8 = ( (rgb2gray(watermark.uint8) ) > 127).*255;
 figure(2)
 imshow(watermark.uint8 )
 title('Original Test Watermark');
-
+drawnow
 %% Calculate image dependent simulation parameters
 % Image width
 params.Width = size(image.uint8, 1);
@@ -53,20 +48,76 @@ params.N = size(image.uint8, 1) * size(image.uint8, 2);
 % Number of blocks required to embedded the watermark
 params.nBlocks = numel(watermark.uint8(:,:,1)) / params.blockSize.^2;
 
-%% Run Watermark Embedder
-run Embedder
+alpha = 1:255;
 
-%% Calculate PSNR
-image.PSNR_dB = psnr(image.uint8, image.RGB_watermarked);
+image.PSNR_dB = zeros(1, length(alpha));
+value = zeros(1, length(alpha));
 
-%% Run Watermarker Extractor
-run Extractor
+for k = 1:length(alpha)
+    params.alpha = alpha(k);
+    
+    %% Run Watermark Embedder
+    run Embedder
 
-%% Calculate Similarity
-value = Quality_Measurement(watermark.uint8, watermark.decode);
+    if verbose_pic
+    
+        figure(3)
+        imshow(image.YCbCr, [])
+        title('Original Test Image in YC_bC_r color space')
+        drawnow
+        
+        % Show watermarked image with in RGB color space
+        figure(4), 
+        imshow(image.RGB_watermarked, [])
+        title('Original Image with the embedded watermark')
+        drawnow
+    end;
 
+    %% Calculate PSNR
+    image.PSNR_dB(k) = psnr(image.uint8, image.RGB_watermarked);
+
+    %% Run Watermarker Extractor
+    run Extractor
+    
+    if verbose_pic
+        % Show watermarked image represented in YCbCr color space
+        figure(5)
+        imshow(image.YCbCr_watermarked, [])
+        title('Watermarked Image in YC_bC_r color space')
+        drawnow
+
+        % Show extracted watermark
+        figure(6)
+        imshow(watermark.decoded)
+        title('Extracted Watermark from test image')
+        drawnow
+
+        % Show RGB image without watermark
+        figure(7), 
+        imshow(image.RGB_clean)
+        title('Test image after removing the watermark')
+        drawnow
+	end;
+
+    %% Calculate Similarity
+    value(k) = Quality_Measurement(watermark.uint8, watermark.decoded);
+end;
 %% Results
 
 %%% Tables
 
 %%% Plots
+figure(8)
+plot(alpha, image.PSNR_dB)
+xlim([alpha(1) alpha(end)])
+title('PSNR_{dB} Dependence of \alpha')
+xlabel('\alpha')
+ylabel('PSNR_{dB}')
+
+figure(9)
+plot(alpha, value)
+xlim([alpha(1) alpha(end)])
+title('Quality of the Extracted Watermark Dependence of \alpha')
+xlabel('\alpha')
+ylabel('Quality Measurement')
+
