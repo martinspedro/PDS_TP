@@ -36,9 +36,8 @@ params.Width8 = params.Width / params.blockSize;
 
 %% Read Watermark
 watermark.uint8 = imread('Pictures/watermark_pinterest.png');
-
-% Convert RGB watermark to binary image
-watermark.uint8 = (watermark.uint8(:, :, 1) +  watermark.uint8(:, :, 2) + watermark.uint8(:, :, 3) )> 0;
+watermark.uint8 = rgb2gray(watermark.uint8);
+watermark.uint8 = (watermark.uint8>127).*255;
 
 figure(3)
 imshow(watermark.uint8 )
@@ -49,19 +48,19 @@ title('Watermark to be used');
 params.N = size(image.uint8, 1) * size(image.uint8, 2);
 
 % Number of blocks required to embedded the watermark
-params.nBlocks = numel(watermark.uint8) / params.blockSize.^2;
+params.nBlocks = numel(watermark.uint8(:,:,1)) / params.blockSize.^2;
 
 %% Run Watermark Embedder
 run Embedder
 
 %% Calculate PSNR
-image.PSNR_dB = PSNR(image.uint8, image.RGB)
+image.PSNR_dB = psnr(image.uint8, image.RGB_watermarked)
 
 %% Run Watermarker Extractor
 run Extractor
 
 %% Calculate Similarity
-value = Quality_Measurement(watermark_original, watermark_extraida)
+value = Quality_Measurement(watermark.uint8, watermark.decode)
 
 %% Results
 
