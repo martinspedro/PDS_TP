@@ -8,7 +8,7 @@ clear; close all; clc;
 
 %% Parameters
 % Addition factor to watermark embedding
-params.alpha = 3;
+params.alpha = 1;
 
 % Small value to avoid taking the log of a completely black pixel whose
 % luminance is zero 
@@ -20,7 +20,7 @@ params.blockSize = 8;
 verbose_pic = 1;
 
 %% Read image
-image.uint8 = imread('Pictures/Lenna.png');
+image.uint8 = imread('Pictures/unnamed.png');
 
 figure(1)
 imshow(image.uint8, []);
@@ -28,7 +28,7 @@ title('Original Test Image');
 drawnow
 
 %% Read Watermark
-watermark.uint8 = imread('Pictures/watermark_pinterest.png');
+watermark.uint8 = imread('Watermarks/smile.jpg');
 
 % Convert the RGB watermark into a binary image (black and white)
 watermark.uint8 = ( (rgb2gray(watermark.uint8) ) > 127).*255;

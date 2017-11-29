@@ -19,14 +19,14 @@ params.blockSize = 8;
 
 verbose_pic = 0;
 %% Read image
-image.uint8 = imread('Pictures/Lenna.png');
+image.uint8 = imread('Pictures/unnamed.png');
 
 figure(1)
 imshow(image.uint8, []);
 title('Original Test Image');
 drawnow
 %% Read Watermark
-watermark.uint8 = imread('Pictures/watermark_pinterest.png');
+watermark.uint8 = imread('Watermarks/pinterest.png');
 
 % Convert the RGB watermark into a binary image (black and white)
 watermark.uint8 = ( (rgb2gray(watermark.uint8) ) > 127).*255;

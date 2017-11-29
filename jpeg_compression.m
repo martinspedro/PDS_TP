@@ -1,3 +1,4 @@
+
 %% Spatial Domain watermarking Scheme for Colored Images Based on Log-average Luminance
 % André Gradim     - 
 % João Pandeirada  -
@@ -20,10 +21,10 @@ params.blockSize = 8;
 verbose_pic = 1;
 
 %% Read image
-image.croped100 = imread('Pictures/JellyBeans.jpg');
+image.uint8 = imread('Pictures/picasso_x.jpg');
 
 figure(1)
-imshow(image.croped100, []);
+imshow(image.uint8, []);
 title('Original Test Image');
 drawnow
 %% Read Watermark
@@ -39,27 +40,27 @@ drawnow
 
 %% Crop image
 % Image width
-params.Width = size(image.croped100, 1);
-params.crop = 1/64;
-
-crop.crop12 = [params.Width * 0.4375  params.Width * 0.5625];
-crop.crop25 = [params.Width * 0.375  params.Width * 0.625];
-crop.crop50 = [params.Width * 0.25  params.Width * 0.75];
-crop.crop75 = [params.Width * 0.125  params.Width * 0.875];
-
-image.croped75 = imcrop(image.croped100,[crop.crop75 crop.crop75]);
-image.croped50 = imcrop(image.croped100,[crop.crop50 crop.crop50]);
-image.croped25 = imcrop(image.croped100,[crop.crop25 crop.crop25]);
-image.croped12 = imcrop(image.croped100,[crop.crop12 crop.crop12]);
-
-image.cropped = {image.croped100, image.croped75, image.croped50, image.croped25, image.croped12};
+params.Width = size(image.uint8, 1);
+% params.crop = 1/64;
+% 
+% crop.crop12 = [params.Width * 0.4375  params.Width * 0.5625];
+% crop.crop25 = [params.Width * 0.375  params.Width * 0.625];
+% crop.crop50 = [params.Width * 0.25  params.Width * 0.75];
+% crop.crop75 = [params.Width * 0.125  params.Width * 0.875];
+% 
+% image.croped75 = imcrop(image.croped100,[crop.crop75 crop.crop75]);
+% image.croped50 = imcrop(image.croped100,[crop.crop50 crop.crop50]);
+% image.croped25 = imcrop(image.croped100,[crop.crop25 crop.crop25]);
+% image.croped12 = imcrop(image.croped100,[crop.crop12 crop.crop12]);
+% 
+% image.cropped = {image.croped100, image.croped75, image.croped50, image.croped25, image.croped12};
 
 for k = 1 : 5
-    params.crop = params.crop * 2;
-    params.cropping_idx = [params.Width*params.crop  params.Width * (1 - params.crop)];
-    image.uint8 = imcrop(image.croped100,[params.Width*params.crop params.Width*params.crop ...
-                         params.Width * (1 - params.crop) params.Width * (1 - params.crop)]);
-    
+%     params.crop = params.crop * 2;
+%     params.cropping_idx = [params.Width*params.crop  params.Width * (1 - params.crop)];
+%     image.uint8 = imcrop(image.croped100,[params.Width*params.crop params.Width*params.crop ...
+%                          params.Width * (1 - params.crop) params.Width * (1 - params.crop)]);
+%     
     %% Calculate image dependent simulation parameters
     % Image width
     params.Width = size(image.uint8, 1);
@@ -89,11 +90,13 @@ for k = 1 : 5
         imshow(image.RGB_watermarked, [])
         title('Original Image with the embedded watermark')
         drawnow
+        imwrite(image.RGB_watermarked, 'test.jpg', 'Quality', 100)
+        image.RGB_watermarked = imread('test.jpg');
     end;
 
         %% Calculate PSNR
         image.PSNR_dB(k) = psnr(image.uint8, image.RGB_watermarked);
-
+        
         %% Run Watermarker Extractor
         run Extractor
 
