@@ -1,3 +1,8 @@
+% Andre Gradim     - 76480
+% Joao Pandeirada  - 76482 
+% Patricia Martins - 69754 
+% Pedro Martins    - 76374
+
 function [ im_ave_lum ,block_ave_lum ] = log_average( Y, params )
 %LOG_AVERAGE Calculate the log average of the image and for each block
     Y=double(Y(:,:,1));

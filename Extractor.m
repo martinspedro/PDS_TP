@@ -1,8 +1,8 @@
 %% Watermark Extractor
-% André Gradim - 
-% João Pandeirada -
-% Patrícia Martins - 
-% Pedro Martins - 76374
+% Andre Gradim     - 76480
+% Joao Pandeirada  - 76482 
+% Patricia Martins - 69754 
+% Pedro Martins    - 76374
 
 %% Convert from RGB to YCbCr color space
 image.YCbCr_watermarked = conv_RGB2YCbCr(image.RGB_watermarked );

@@ -1,3 +1,8 @@
+% Andre Gradim     - 76480
+% Joao Pandeirada  - 76482 
+% Patricia Martins - 69754 
+% Pedro Martins    - 76374
+
 function [change] =select_spiral(candidatos, params)
     change= zeros(params.nBlocks,2);
     

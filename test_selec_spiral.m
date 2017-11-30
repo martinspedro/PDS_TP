@@ -1,9 +1,15 @@
+%%
 clear all;
 close all;
 clc
 
+% André Gradim     - 76480
+% João Pandeirada  - 76482
+% Patrícia Martins - 69754
+% Pedro Martins    - 76374
 
-%%
+
+%% Test Script for candidate selection
 params.nBlocks=16;
 
 params.Width=800;

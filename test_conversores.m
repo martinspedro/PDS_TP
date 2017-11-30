@@ -1,3 +1,9 @@
+% André Gradim     - 76480
+% João Pandeirada  - 76482
+% Patrícia Martins - 69754
+% Pedro Martins    - 76374
+
+%% Test Script for conversion functions
 image= imread('thor.jpg');
 % image= imread('circle.jpg');
 figure

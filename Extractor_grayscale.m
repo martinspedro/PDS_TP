@@ -1,8 +1,8 @@
-%% Watermark Extractor for grayscale
-% André Gradim - 
-% João Pandeirada -
-% Patrícia Martins - 
-% Pedro Martins - 76374
+%% Watermark Extractor for grayscale image
+% Andre Gradim     - 76480
+% Joao Pandeirada  - 76482 
+% Patricia Martins - 69754 
+% Pedro Martins    - 76374
 
 %% Average Luminance of the original image
 [params.averageLuminance, results.blocksLuminance] = log_average(image.grayscale, params);

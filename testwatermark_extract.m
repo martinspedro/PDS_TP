@@ -1,3 +1,9 @@
+% André Gradim     - 76480
+% João Pandeirada  - 76482
+% Patrícia Martins - 69754
+% Pedro Martins    - 76374
+
+%% Test Script for watermark extract
 %[image.YCbCr_clean, watermark.decode] = 
 %watermark_extract(image.YCbCr, image.YCbCr_watermarked , choosenBlocks , params);
 

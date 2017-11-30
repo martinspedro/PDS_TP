@@ -1,3 +1,8 @@
+% André Gradim     - 76480
+% João Pandeirada  - 76482
+% Patrícia Martins - 69754
+% Pedro Martins    - 76374
+
 function [img_clean, wmk_extraida] = watermark_extract(img_original,img_watermarked, choosenblocks, params)
 
 dif_image = double(img_watermarked(:,:,1)) - double(img_original(:,:,1));

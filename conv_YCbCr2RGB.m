@@ -1,3 +1,8 @@
+% Andre Gradim     - 76480
+% Joao Pandeirada  - 76482 
+% Patricia Martins - 69754 
+% Pedro Martins    - 76374
+
 function [ RGB ] = conv_YCbCr2RGB( YCbCr )
 %conv_RGB2YCbCr Convert RGB to YCbCr
 %   Convert RGB to YCbCr

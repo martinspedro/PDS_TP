@@ -1,3 +1,8 @@
+% André Gradim     - 76480
+% João Pandeirada  - 76482
+% Patrícia Martins - 69754
+% Pedro Martins    - 76374
+
 function [ imagem_com_watermark ] = watermark_embedding( original_image, original_watermark, xy, params)
     
     
